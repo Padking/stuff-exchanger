@@ -20,22 +20,10 @@ def main():
 
 
     @dp.message_handler(content_types=types.message.ContentType.PHOTO)
-    async def save_photo(message):
-        photo = message.photo[-1]
-        await photo.download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
-
-        users = utils.get_users(constants.TELEGRAM_USERS_GOODS_FILE)
-        for user in users:
-            if user['user_id'] == message.from_user.id:
-                user['goods'].append({
-                    'image': ast.literal_eval(str(photo)),
-                    'name': message.caption
-                })
-
-        users_ = {
-            'users': users
-        }
-        utils.update_users(users_, constants.TELEGRAM_USERS_GOODS_FILE)
+    async def add_stuff(message):
+        await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
+        users = utils.get_users()
+        utils.update_users(users, message)
 
 
 if __name__ == '__main__':

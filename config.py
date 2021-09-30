@@ -1,10 +1,14 @@
+from typing import Tuple
+
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str
-    TELEGRAM_USERS_GOODS_FILE: str
     TELEGRAM_GOODS_PHOTO_DIR: str
+
+    USERS_OBJ_FIELDS: Tuple[str, str]
+    SHELVE_FILENAME: str
 
     BOTS_TEST_CMD: str
     BOTS_ADD_STUFF_CMD: str
