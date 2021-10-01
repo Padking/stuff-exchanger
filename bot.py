@@ -4,6 +4,7 @@ from aiogram import (
     Bot, Dispatcher,
     executor, types
 )
+from aiogram.dispatcher.filters import Text
 
 import bots_helper
 import config
@@ -30,6 +31,13 @@ def main():
         good = utils.get_good(message.from_user.id)
         await message.answer_photo(good['image']['file_id'], caption=good['name'],
                                    reply_markup=bots_helper.get_keyboard())
+
+
+    @dp.callback_query_handler(Text(equals=config.buttons_callback_data[:2]))
+    async def add_assesment_to_db(callback_query: types.CallbackQuery):
+        # Добавление инфы в БД
+        text_msg = config.messages_per_states_codes.get('2')
+        await callback_query.answer(text=text_msg, show_alert=True)
 
 
 if __name__ == '__main__':

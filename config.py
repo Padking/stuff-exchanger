@@ -19,13 +19,14 @@ class Settings(BaseSettings):
         env_file_encoding = 'utf-8'
 
 
-codes_states = ['1', ]
+codes_states = ['1', '2', ]
 messages_texts = [
     'Добавьте фото и название вещи',
-
+    'Ваша оценка учтена!',
+    
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))
 
 buttons_labels = ['❤️', '💔', '🔚', ]
-buttons_callback_data = ['liked_by_users', 'disliked_by_users', 'after_exit', ]
+buttons_callback_data = ['like', 'dislike', 'exit', ]
 buttons_labels_callback_data = dict(zip(buttons_labels, buttons_callback_data))
