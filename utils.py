@@ -1,4 +1,5 @@
 import ast
+import random
 import shelve
 from typing import Dict, List, Tuple
 
@@ -23,6 +24,21 @@ def create_user(fields_vals: Tuple,
     user = dict(zip(fields_names, fields_vals))
     
     return user
+
+
+def get_good(user_id) -> Dict:
+    """Получает любую вещь случайного П-ля.
+    
+    За исключением вещей П-ля, который отправил
+    запрос боту
+
+    """
+    
+    users = get_users()
+    user = random.choice([user for user in users if user['user_id'] != user_id])
+    good = random.choice(user['goods'])
+
+    return good
 
 
 def search_user(users: List, id_: int) -> Dict:

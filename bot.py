@@ -1,4 +1,3 @@
-import ast
 import logging
 
 from aiogram import (
@@ -24,6 +23,12 @@ def main():
         await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
         users = utils.get_users()
         utils.update_users(users, message)
+
+
+    @dp.message_handler(commands=constants.BOTS_TEST_CMD)
+    async def test_cmd(message: types.Message):
+        good = utils.get_good(message.from_user.id)
+        await message.answer_photo(good['image']['file_id'], caption=good['name'])
 
 
 if __name__ == '__main__':
