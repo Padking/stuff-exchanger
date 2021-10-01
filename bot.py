@@ -5,7 +5,7 @@ from aiogram import (
     executor, types
 )
 
-
+import bots_helper
 import config
 import utils
 
@@ -25,10 +25,11 @@ def main():
         utils.update_users(users, message)
 
 
-    @dp.message_handler(commands=constants.BOTS_TEST_CMD)
-    async def test_cmd(message: types.Message):
+    @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
+    async def search_stuff_cmd(message: types.Message):
         good = utils.get_good(message.from_user.id)
-        await message.answer_photo(good['image']['file_id'], caption=good['name'])
+        await message.answer_photo(good['image']['file_id'], caption=good['name'],
+                                   reply_markup=bots_helper.get_keyboard())
 
 
 if __name__ == '__main__':

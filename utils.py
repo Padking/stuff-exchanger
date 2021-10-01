@@ -33,9 +33,9 @@ def get_good(user_id) -> Dict:
     запрос боту
 
     """
-    
+
     users = get_users()
-    user = random.choice([user for user in users if user['user_id'] != user_id])
+    user = random.choice([user for user in users if user['user_id'] != user_id])  #FIXME
     good = random.choice(user['goods'])
 
     return good
