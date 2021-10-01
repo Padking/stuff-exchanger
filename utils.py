@@ -35,7 +35,7 @@ def get_good(user_id) -> Dict:
     """
 
     users = get_users()
-    user = random.choice([user for user in users if user['user_id'] != user_id])  #FIXME
+    user = random.choice([user for user in users if user['user_id'] != user_id])
     good = random.choice(user['goods'])
 
     return good
@@ -45,11 +45,7 @@ def search_user(users: List, id_: int) -> Dict:
     for user in users:
         if user['user_id'] == id_:
             return user
-    else:
-        error_msg = (
-            f'Пользователь с {id_} не найден!'
-        )
-        raise ValueError(error_msg)
+    return {}
 
 
 def get_users(filepath=constants.SHELVE_FILENAME, key='users') -> List:

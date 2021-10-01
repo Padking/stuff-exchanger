@@ -28,9 +28,15 @@ def main():
 
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
     async def search_stuff_cmd(message: types.Message):
-        good = utils.get_good(message.from_user.id)
-        await message.answer_photo(good['image']['file_id'], caption=good['name'],
-                                   reply_markup=bots_helper.get_keyboard())
+        users = utils.get_users()
+        user = utils.search_user(users, message.from_user.id)
+        if not user:
+            text_msg = config.messages_per_states_codes.get('3')
+            await message.reply(text_msg)
+        else:
+            good = utils.get_good(message.from_user.id)
+            await message.answer_photo(good['image']['file_id'], caption=good['name'],
+                                    reply_markup=bots_helper.get_keyboard())
 
 
     @dp.callback_query_handler(Text(equals=config.buttons_callback_data[:2]))

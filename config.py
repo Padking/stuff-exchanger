@@ -19,10 +19,11 @@ class Settings(BaseSettings):
         env_file_encoding = 'utf-8'
 
 
-codes_states = ['1', '2', ]
+codes_states = ['1', '2', '3', ]
 messages_texts = [
     'Добавьте фото и название вещи',
     'Ваша оценка учтена!',
+    'Начните пользоваться ботом командой /add_stuff',
     
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))
