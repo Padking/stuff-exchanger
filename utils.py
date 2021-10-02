@@ -30,7 +30,7 @@ def create_entity(fields_vals: Tuple,
     return entity
 
 
-def get_good(users, user_id) -> Dict:
+def get_random_good(users: List, user_id) -> Dict:
     """Получает любую вещь случайного П-ля.
     
     За исключением вещей П-ля, который отправил
@@ -39,6 +39,15 @@ def get_good(users, user_id) -> Dict:
     """
 
     user = random.choice([user for user in users if user['user_id'] != user_id])
+    good = random.choice(user['goods'])
+
+    return good
+
+
+def get_good(users: List, user_id):
+    """Получает любую вещь конкретного П-ля."""
+
+    user = search_user(users, user_id)
     good = random.choice(user['goods'])
 
     return good

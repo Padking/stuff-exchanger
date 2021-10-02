@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     BOTS_TEST_CMD: str
     BOTS_ADD_STUFF_CMD: str
     BOTS_SEARCH_CMD: str
+    BOTS_EXCHANGE_CMD: str
     
     class Config:
         env_file = '.env'
@@ -25,12 +26,15 @@ codes_states = [
     '2',
     '3',
     '4',
+    '5',
+
 ]
 messages_texts = [
     'Добавьте фото и название вещи',
     'Ваша оценка учтена!',
     'Начните пользоваться ботом командой /add_stuff',
     'Недостаточно пользователей в БД для показа вещей',
+    'Вы стали приоритетным П-ем для П-ля с user_id: {}',
     
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))

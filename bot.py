@@ -33,14 +33,21 @@ def main():
         user_id = message.from_user.id
         users = utils.get_users()
         user = utils.search_user(users, user_id)
+
+        users_id_ready_to_exchange = bots_helper.get_priority_user_id_for_exchange(users, message)
+
         if not user:
             text_msg = config.messages_per_states_codes.get('3')
             await message.reply(text_msg)
         elif len(users) == 1:
             text_msg = config.messages_per_states_codes.get('4')
             await message.reply(text_msg)
+        elif users_id_ready_to_exchange:
+            good = utils.get_good(users, users_id_ready_to_exchange)
+            await message.answer_photo(good['image']['file_id'], caption=good['name'],
+                                       reply_markup=bots_helper.get_keyboard())
         else:
-            good = utils.get_good(users, user_id)
+            good = utils.get_random_good(users, user_id)
             await message.answer_photo(good['image']['file_id'], caption=good['name'],
                                        reply_markup=bots_helper.get_keyboard())
 
@@ -52,6 +59,15 @@ def main():
 
         text_msg = config.messages_per_states_codes.get('2')
         await callback_query.answer(text=text_msg, show_alert=True)
+
+
+    @dp.message_handler(commands=constants.BOTS_EXCHANGE_CMD)
+    async def exchange_stuff(message: types.Message):
+        users = utils.get_users()
+        priority_user_for_exchange = bots_helper.get_priority_user_id_for_exchange(users, message)
+        text_msg_template = config.messages_per_states_codes.get('5')
+        text_msg = text_msg_template.format(priority_user_for_exchange)
+        await message.answer(text_msg)
 
 
 if __name__ == '__main__':
