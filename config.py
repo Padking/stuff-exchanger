@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str
     TELEGRAM_GOODS_PHOTO_DIR: str
 
-    USERS_OBJ_FIELDS: Tuple[str, str]
+    USERS_OBJ_FIELDS: Tuple[str, str, str]
+    ASSESMENTS_OBJ_FIELDS: Tuple[str, str, str]
     SHELVE_FILENAME: str
 
     BOTS_TEST_CMD: str
@@ -19,11 +20,17 @@ class Settings(BaseSettings):
         env_file_encoding = 'utf-8'
 
 
-codes_states = ['1', '2', '3', ]
+codes_states = [
+    '1',
+    '2',
+    '3',
+    '4',
+]
 messages_texts = [
     'Добавьте фото и название вещи',
     'Ваша оценка учтена!',
     'Начните пользоваться ботом командой /add_stuff',
+    'Недостаточно пользователей в БД для показа вещей',
     
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))

@@ -1,4 +1,5 @@
 import logging
+import pprint
 
 from aiogram import (
     Bot, Dispatcher,
@@ -23,25 +24,32 @@ def main():
     async def add_stuff(message):
         await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
         users = utils.get_users()
-        utils.update_users(users, message)
+        user = utils.update_users(users, message)
+        utils.update_goods(users, user, message)
 
 
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
     async def search_stuff_cmd(message: types.Message):
+        user_id = message.from_user.id
         users = utils.get_users()
-        user = utils.search_user(users, message.from_user.id)
+        user = utils.search_user(users, user_id)
         if not user:
             text_msg = config.messages_per_states_codes.get('3')
             await message.reply(text_msg)
+        elif len(users) == 1:
+            text_msg = config.messages_per_states_codes.get('4')
+            await message.reply(text_msg)
         else:
-            good = utils.get_good(message.from_user.id)
+            good = utils.get_good(users, user_id)
             await message.answer_photo(good['image']['file_id'], caption=good['name'],
-                                    reply_markup=bots_helper.get_keyboard())
+                                       reply_markup=bots_helper.get_keyboard())
 
 
     @dp.callback_query_handler(Text(equals=config.buttons_callback_data[:2]))
     async def add_assesment_to_db(callback_query: types.CallbackQuery):
-        # Добавление инфы в БД
+        users = utils.get_users()
+        utils.update_assesments(users, callback_query)
+
         text_msg = config.messages_per_states_codes.get('2')
         await callback_query.answer(text=text_msg, show_alert=True)
 
