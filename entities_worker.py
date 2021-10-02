@@ -17,6 +17,11 @@ def add_good(user: Dict, msg: types.Message, goods='goods'):
     })
 
 
+def change_goods_name(user: Dict, msg: types.Message, goods='goods'):
+    good = search_good(user[goods])
+    good['name'] = msg.text
+
+
 def add_assesment(user: Dict, assesment: Dict, assesments='assesments'):
     user[assesments].append(assesment)
 
@@ -59,8 +64,13 @@ def search_user(users: List, id_: int) -> Dict:
     return {}
 
 
-def get_user_and_users_field(users, by_file_unique_id):
+def search_good(goods: List, name=None) -> Dict:
+    for good in goods:
+        if good['name'] == name:
+            return good
 
+
+def get_user_and_users_field(users, by_file_unique_id):
     for user in users:
         for good_id, good in enumerate(user['goods'], 1):
             if good['image']['file_unique_id'] == by_file_unique_id:

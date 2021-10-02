@@ -21,11 +21,19 @@ def main():
 
 
     @dp.message_handler(content_types=types.message.ContentType.PHOTO)
-    async def add_stuff(message):
+    async def add_stuffs_photo(message: types.Message):
         await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
         users = utils.get_users()
         user = utils.update_users(users, message)
         utils.update_goods(users, user, message)
+
+
+    @dp.message_handler()
+    async def add_stuffs_name(message: types.Message):
+        users = utils.get_users()
+        utils.update_goods_name(users, message)
+        text_msg = config.messages_per_states_codes.get('6')
+        await message.answer(text_msg)
 
 
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)

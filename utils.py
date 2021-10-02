@@ -1,5 +1,5 @@
 import shelve
-from typing import Dict, List
+from typing import Dict, List, Type
 
 from aiogram import types
 
@@ -61,3 +61,19 @@ def update_assesments(users: List, c_query: types.CallbackQuery,
 
     with shelve.open(filepath, flag='w') as users_storage:
         users_storage[key] = users
+
+
+def update_goods_name(users: List, msg: types.Message,
+                      filepath=constants.SHELVE_FILENAME, key='users'):
+    
+    user = entities_worker.search_user(users, msg.from_user.id)
+
+    try:
+        entities_worker.change_goods_name(user, msg)
+    # П-ль, который добавлял ранее вещи корректным способом,
+    # пытается отправить название вещи (новой) раньше загрузки её фотографии
+    except TypeError:
+        pass
+    else:
+        with shelve.open(filepath, flag='w') as users_storage:
+            users_storage[key] = users
