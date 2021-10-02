@@ -1,5 +1,4 @@
 import logging
-import pprint
 
 from aiogram import (
     Bot, Dispatcher,
@@ -9,6 +8,7 @@ from aiogram.dispatcher.filters import Text
 
 import bots_helper
 import config
+import entities_worker
 import utils
 
 
@@ -32,7 +32,7 @@ def main():
     async def search_stuff_cmd(message: types.Message):
         user_id = message.from_user.id
         users = utils.get_users()
-        user = utils.search_user(users, user_id)
+        user = entities_worker.search_user(users, user_id)
 
         users_id_ready_to_exchange = bots_helper.get_priority_user_id_for_exchange(users, message)
 
@@ -43,11 +43,11 @@ def main():
             text_msg = config.messages_per_states_codes.get('4')
             await message.reply(text_msg)
         elif users_id_ready_to_exchange:
-            good = utils.get_good(users, users_id_ready_to_exchange)
+            good = entities_worker.get_good(users, users_id_ready_to_exchange)
             await message.answer_photo(good['image']['file_id'], caption=good['name'],
                                        reply_markup=bots_helper.get_keyboard())
         else:
-            good = utils.get_random_good(users, user_id)
+            good = entities_worker.get_random_good(users, user_id)
             await message.answer_photo(good['image']['file_id'], caption=good['name'],
                                        reply_markup=bots_helper.get_keyboard())
 

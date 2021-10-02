@@ -3,7 +3,6 @@ from typing import Dict, List
 from aiogram import types
 
 from config import buttons_labels_callback_data
-from utils import search_user, get_good
 
 
 def get_keyboard(buttons_labels_callback_data: Dict=buttons_labels_callback_data, buttons=None):
