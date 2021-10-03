@@ -28,14 +28,6 @@ def main():
         utils.update_goods(users, user, message)
 
 
-    @dp.message_handler()
-    async def add_stuffs_name(message: types.Message):
-        users = utils.get_users()
-        utils.update_goods_name(users, message)
-        text_msg = config.messages_per_states_codes.get('6')
-        await message.answer(text_msg)
-
-
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
     async def search_stuff_cmd(message: types.Message):
         user_id = message.from_user.id
@@ -62,8 +54,16 @@ def main():
 
     @dp.callback_query_handler(Text(equals=config.buttons_callback_data[:2]))
     async def add_assesment_to_db(callback_query: types.CallbackQuery):
+        # Запись оценки в БД
         users = utils.get_users()
         utils.update_assesments(users, callback_query)
+
+        users = utils.get_users()
+        donors_acceptors, acceptors_donors = bots_helper.get_priority_users_ids_for_matching(users, callback_query)
+        users_match_exist = bots_helper.is_users_match(donors_acceptors, acceptors_donors)
+        if users_match_exist:
+            # Прислать контакты донора акцептору, а акцептора донору
+            await callback_query.answer('Совпадение найдено!')
 
         text_msg = config.messages_per_states_codes.get('2')
         await callback_query.answer(text=text_msg, show_alert=True)
@@ -75,6 +75,14 @@ def main():
         priority_user_for_exchange = bots_helper.get_priority_user_id_for_exchange(users, message)
         text_msg_template = config.messages_per_states_codes.get('5')
         text_msg = text_msg_template.format(priority_user_for_exchange)
+        await message.answer(text_msg)
+
+
+    @dp.message_handler()
+    async def add_stuffs_name(message: types.Message):
+        users = utils.get_users()
+        utils.update_goods_name(users, message)
+        text_msg = config.messages_per_states_codes.get('6')
         await message.answer(text_msg)
 
 
