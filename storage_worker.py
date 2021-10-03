@@ -74,7 +74,7 @@ def update_goods_name(users: List, msg: types.Message,
     # П-ль, который добавлял ранее вещи корректным способом,
     # пытается отправить название вещи (новой) раньше загрузки её фотографии
     except TypeError:
-        pass
+        pass  # Добавить информацию в журнал
     else:
         with shelve.open(filepath, flag='w') as users_storage:
             users_storage[key] = users
