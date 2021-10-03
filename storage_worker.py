@@ -11,7 +11,7 @@ constants = config.Settings()
 
 
 def get_users(filepath=constants.SHELVE_FILENAME, key='users') -> List:
-    with shelve.open(filepath, flag='r') as users_storage:
+    with shelve.open(filepath) as users_storage:
         try:
             users = users_storage[key]
         except KeyError:  # Никто не пользовался ботом
