@@ -34,6 +34,9 @@ def main():
         user = storage_worker.update_users(users, message)
         storage_worker.update_goods(users, user, message)
 
+        photo_added = config.messages_per_states_codes.get('10')
+        await message.reply(photo_added)
+
 
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
     async def search_stuff_cmd(message: types.Message):
