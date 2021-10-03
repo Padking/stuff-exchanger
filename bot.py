@@ -15,6 +15,12 @@ import storage_worker
 
 def main():
 
+    @dp.message_handler(commands=constants.BOTS_START_CMD)
+    async def start_cmd(message: types.Message):
+        text_msg = config.messages_per_states_codes.get('9')
+        await message.answer(text_msg)
+
+
     @dp.message_handler(commands=constants.BOTS_ADD_STUFF_CMD)
     async def add_stuff_cmd(message: types.Message):
         text_msg = config.messages_per_states_codes.get('1')

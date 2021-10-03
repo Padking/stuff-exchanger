@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     SHELVE_FILENAME: str
 
     BOTS_TEST_CMD: str
+    BOTS_START_CMD: str
     BOTS_ADD_STUFF_CMD: str
     BOTS_SEARCH_CMD: str
     BOTS_EXCHANGE_CMD: str
@@ -30,6 +31,7 @@ codes_states = [
     '6',
     '7',
     '8',
+    '9',
 
 ]
 messages_texts = [
@@ -43,6 +45,12 @@ messages_texts = [
     'Вещь добавлена в БД',
     'Совпадение в желаниях к обмену найдено!',
     'Напишите П-лю @{} для согласования обмена',
+
+    '''Привет! Я помогу вам обменять что-то ненужное на очень нужное.
+    Чтобы разместить вещь к обмену загрузите её фото и укажите короткое название.
+    После этого вам станут доступны вещи других пользователей.
+    Для получения подробной информации напишите /help.
+    '''
     
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))
