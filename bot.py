@@ -9,22 +9,39 @@ from aiogram.dispatcher.filters import Text
 import bots_helper
 import config
 import utils
-
+import keyboards as kb
 
 def main():
 
-    @dp.message_handler(commands=constants.BOTS_ADD_STUFF_CMD)
-    async def add_stuff_cmd(message: types.Message):
+    @dp.message_handler(commands="start")
+    async def start_cmd(message: types.Message):
         text_msg = config.messages_per_states_codes.get('1')
         await message.answer(text_msg)
 
+    @dp.message_handler(commands="help")
+    async def help_cmd(message: types.Message):
+        text_msg = config.messages_per_states_codes.get('3')
+        await message.answer(text_msg, reply_markup=kb.find_goods_kb)
 
-    @dp.message_handler(content_types=types.message.ContentType.PHOTO)
+    @dp.message_handler(commands="add_stuff")
+    async def help_cmd(message: types.Message):
+        text_msg = 'Загрузите фото'
+        await message.answer(text_msg, reply_markup=kb.find_goods_kb)
+        @dp.message_handler(content_types=types.message.ContentType.PHOTO)
+        async def add_stuff(message):
+            await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
+            users = utils.get_users()
+            utils.update_users(users, message)
+            await message.answer('Фото загружено')
+
+    '''
+   @dp.message_handler(content_types=types.message.ContentType.PHOTO)
     async def add_stuff(message):
         await message.photo[-1].download(destination_dir=constants.TELEGRAM_GOODS_PHOTO_DIR)
         users = utils.get_users()
         utils.update_users(users, message)
-
+        await message.answer('Фото загружено')
+'''
 
     @dp.message_handler(commands=constants.BOTS_SEARCH_CMD)
     async def search_stuff_cmd(message: types.Message):

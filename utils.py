@@ -20,9 +20,9 @@ def add_good(user: Dict, msg: types.Message, goods='goods'):
 
 def create_user(fields_vals: Tuple,
                 fields_names=constants.USERS_OBJ_FIELDS) -> Dict:
-    
+
     user = dict(zip(fields_names, fields_vals))
-    
+
     return user
 
 
@@ -61,6 +61,13 @@ def get_users(filepath=constants.SHELVE_FILENAME, key='users') -> List:
 
     return users
 
+def get_goods(filepath=constants.SHELVE_FILENAME, key='users'):
+    with shelve.open(filepath, flag='r') as users_storage:
+        try:
+            goods = users_storage[key]
+        except KeyError:  # Никто не пользовался ботом
+            users = []
+
 
 def update_users(users: List, msg: types.Message,
                  filepath=constants.SHELVE_FILENAME, key='users'):
@@ -76,6 +83,6 @@ def update_users(users: List, msg: types.Message,
         users.append(user)
     else:  # Добавление очередной вещи П-я
         add_good(user, msg)
-        
+
     with shelve.open(filepath, flag='w') as users_storage:
         users_storage[key] = users
