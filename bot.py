@@ -5,6 +5,7 @@ from aiogram import (
     executor, types
 )
 from aiogram.dispatcher.filters import Text
+from aiogram.types import message
 
 import bots_helper
 import config
@@ -59,11 +60,18 @@ def main():
         utils.update_assesments(users, callback_query)
 
         users = utils.get_users()
-        donors_acceptors, acceptors_donors = bots_helper.get_priority_users_ids_for_matching(users, callback_query)
+        donors_acceptors, acceptors_donors, donor_user = bots_helper.get_priority_users_ids_for_matching(users, callback_query)
         users_match_exist = bots_helper.is_users_match(donors_acceptors, acceptors_donors)
         if users_match_exist:
-            # Прислать контакты донора акцептору, а акцептора донору
-            await callback_query.answer('Совпадение найдено!')
+            text_anwer_to_buttons_click = config.messages_per_states_codes.get('7')
+
+            text_msg_template = config.messages_per_states_codes.get('8')
+            msg_to_exchange_for_donor = text_msg_template.format(callback_query.from_user.username)
+            msg_to_exchange_for_acceptor = text_msg_template.format(donor_user['username'])
+
+            await callback_query.answer(text_anwer_to_buttons_click)
+            await callback_query.message.answer(msg_to_exchange_for_acceptor)
+            await bot.send_message(donor_user['user_id'], msg_to_exchange_for_donor, disable_notification=True)
 
         text_msg = config.messages_per_states_codes.get('2')
         await callback_query.answer(text=text_msg, show_alert=True)

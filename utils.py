@@ -24,12 +24,13 @@ def update_users(users: List, msg: types.Message,
                  filepath=constants.SHELVE_FILENAME, key='users'):
 
     user_id = msg.from_user.id
+    username = msg.from_user.username
     user = entities_worker.search_user(users, user_id)
 
     if users and user:
         return user
 
-    users_fields_vals = (user_id, list(), list(), )
+    users_fields_vals = (user_id, username, list(), list(), )
     new_user = entities_worker.create_entity(users_fields_vals)
     users.append(new_user)
 

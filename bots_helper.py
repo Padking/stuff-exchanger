@@ -60,7 +60,7 @@ def get_priority_users_ids_for_matching(users: List, c_query: types.CallbackQuer
     donor, _ = get_user_and_users_field(users, c_query.message.photo[-1].file_unique_id)
     acceptors_donors = get_combinations_of_users(donor['user_id'], donors_users_ids)
 
-    return donors_acceptors, acceptors_donors  # Ещё вернуть donor['user_id'] для отправки контактов
+    return donors_acceptors, acceptors_donors, donor
 
 
 def get_combinations_of_users(donor_id, acceptors_ids: List, combinations_of_users=None) -> List[Tuple[int, int]]:

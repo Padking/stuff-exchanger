@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str
     TELEGRAM_GOODS_PHOTO_DIR: str
 
-    USERS_OBJ_FIELDS: Tuple[str, str, str]
+    USERS_OBJ_FIELDS: Tuple[str, str, str, str]
     ASSESMENTS_OBJ_FIELDS: Tuple[str, str, str]
     SHELVE_FILENAME: str
 
@@ -28,16 +28,21 @@ codes_states = [
     '4',
     '5',
     '6',
+    '7',
+    '8',
 
 ]
 messages_texts = [
     '''Добавьте фото, нажав на значок "скрепки", без добавления подписи к фото;
     следующим сообщением, напишите название вещи''',
+
     'Ваша оценка учтена!',
     'Начните пользоваться ботом командой /add_stuff',
     'Недостаточно пользователей в БД для показа вещей',
     'Вы стали приоритетным П-ем для П-ля с user_id: {}',
     'Вещь добавлена в БД',
+    'Совпадение в желаниях к обмену найдено!',
+    'Напишите П-лю @{} для согласования обмена',
     
 ]
 messages_per_states_codes = dict(zip(codes_states, messages_texts))
