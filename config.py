@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     BOTS_ADD_STUFF_CMD: str
     BOTS_SEARCH_CMD: str
     BOTS_EXCHANGE_CMD: str
+    BOTS_HELP_CMD: str
     
     class Config:
         env_file = '.env'
@@ -59,3 +60,11 @@ messages_per_states_codes = dict(zip(codes_states, messages_texts))
 buttons_labels = ['❤️', '💔', '🔚', ]
 buttons_callback_data = ['like', 'dislike', 'exit', ]
 buttons_labels_callback_data = dict(zip(buttons_labels, buttons_callback_data))
+
+commands = {  
+    'start': 'Описание работы с ботом',
+    'add_stuff': 'Добавить вещь',
+    'search_stuff': 'Найти вещь',
+    'exchange_stuff': 'Обменять вещь',
+    'help': 'Доступные команды для бота',
+}

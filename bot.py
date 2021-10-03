@@ -95,6 +95,15 @@ def main():
         await message.answer(text_msg)
 
 
+    @dp.message_handler(commands=constants.BOTS_HELP_CMD)
+    async def help_cmd(message: types.Message):
+        help_text = "Доступные команды для бота: \n"
+        for key in config.commands:
+            help_text += "/" + key + ": "
+            help_text += config.commands[key] + "\n"
+        await message.answer(help_text)
+
+
     @dp.message_handler()
     async def add_stuffs_name(message: types.Message):
         users = storage_worker.get_users()
