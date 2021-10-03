@@ -100,7 +100,7 @@ def main():
         users = storage_worker.get_users()
         storage_worker.update_goods_name(users, message)
         text_msg = config.messages_per_states_codes.get('6')
-        await message.answer(text_msg)
+        await message.reply(text_msg)
 
 
 if __name__ == '__main__':
