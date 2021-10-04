@@ -18,7 +18,7 @@
 * Получить токен у [@BotFather](https://t.me/botfather),
 * Настроить управление ботом через интерфейс [@BotFather](https://t.me/botfather):
     - присвоить имя боту,
-    - указать список [команд](сслыка)
+    - указать список [команд](https://github.com/Padking/stuff-exchanger#%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D1%8B-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0)
 
 ### Структура проекта
 
@@ -41,32 +41,38 @@
   
   
   Добавить фото вещи:
+
   ![add_stuffs_photo](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/add_stuffs_photo.png)
 
 
   Добавить название вещи:
+
   ![add_stuffs_name](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/add_stuffs_name.png)
   
 
   Поиск вещи:
+
   ![search_stuff](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/search_stuff.png)
 
 
   Оценивание вещи:
+
   ![stuffs_assesment](https://github.com/Padking/stuff-exchanger/blob/master/stuffs_assesment.png)
 
 
   Обмен вещи:
+
   ![exchange_stuff](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/exchange_stuff.png)
 
 
   Совпадение желаний пользователей:
+
   ![users_matching](https://github.com/Padking/stuff-exchanger/blob/master/users_matching.png)
 
 
 ## Сценарии использования
 
-### Ограничения
+### Ограничения общие
 - Команды, пригодные для работы с ботом, доступны в телеграм-интерфейсе чата с ботом,
 - Пользователь, начинающий работу с ботом, должен иметь _username_ - так он сможет держать связь с потенциальным продавцом,
 - текст, отмеченный в сценариях большими буквами.
