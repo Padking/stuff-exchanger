@@ -57,7 +57,7 @@
 
   Оценивание вещи:
 
-  ![stuffs_assesment](https://github.com/Padking/stuff-exchanger/blob/master/stuffs_assesment.png)
+  ![stuffs_assesment](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/stuffs_assesment.png)
 
 
   Обмен вещи:
@@ -67,7 +67,7 @@
 
   Совпадение желаний пользователей:
 
-  ![users_matching](https://github.com/Padking/stuff-exchanger/blob/master/users_matching.png)
+  ![users_matching](https://github.com/Padking/stuff-exchanger/blob/master/screenshots/users_matching.png)
 
 
 ## Сценарии использования
